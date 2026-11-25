@@ -98,7 +98,7 @@ st.markdown(
         padding: 0.8rem 0.3rem;
         border-radius: 12px;
         border: 1px solid #ddd;
-        font-weight: 700;
+                font-weight: 700;
         opacity: 0.45;
     }
 
@@ -197,7 +197,6 @@ st.divider()
 # 결과
 # -----------------------------
 if st.button("🔍 골 상태 예측하기", use_container_width=True):
-
     male_value = 1 if sex_label == "남성" else 0
 
     probability = predict_probability(
@@ -237,25 +236,19 @@ if st.button("🔍 골 상태 예측하기", use_container_width=True):
 
     st.subheader("2️⃣ 예측 결과")
 
-    st.markdown(
-        f"""
-        <div class="result-card">
-            <div class="result-title">낮은 골 상태 추정 가능성</div>
-            <div class="result-number">{percent:.1f}%</div>
-
-            <div class="risk-row">
-                <div class="risk-box risk-low {low_class}">저위험<br><span style="font-size:0.78rem;">25% 미만</span></div>
-                <div class="risk-box risk-mid {mid_class}">주의<br><span style="font-size:0.78rem;">25~49.9%</span></div>
-                <div class="risk-box risk-high {high_class}">고위험<br><span style="font-size:0.78rem;">50% 이상</span></div>
-            </div>
-
-            <div style="text-align:center; font-size:1.15rem; font-weight:800;">
-                현재 단계: {result_label}
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    result_html = f"""
+<div class="result-card">
+<div class="result-title">낮은 골 상태 추정 가능성</div>
+<div class="result-number">{percent:.1f}%</div>
+<div class="risk-row">
+<div class="risk-box risk-low {low_class}">저위험<br><span style="font-size:0.78rem;">25% 미만</span></div>
+<div class="risk-box risk-mid {mid_class}">주의<br><span style="font-size:0.78rem;">25~49.9%</span></div>
+<div class="risk-box risk-high {high_class}">고위험<br><span style="font-size:0.78rem;">50% 이상</span></div>
+</div>
+<div style="text-align:center; font-size:1.15rem; font-weight:800;">현재 단계: {result_label}</div>
+</div>
+"""
+    st.markdown(result_html, unsafe_allow_html=True)
 
     st.progress(probability)
 
@@ -304,7 +297,7 @@ if st.button("🔍 골 상태 예측하기", use_container_width=True):
         입력된 성별, 나이, 키, 몸무게의 조합이
         기존 연구자료에서 **낮은 골 상태로 분류된 사람들의 패턴과 얼마나 유사한지**
         통계적으로 계산한 결과입니다.
-        """
+            """
     )
 
     st.write(
@@ -356,9 +349,3 @@ if st.button("🔍 골 상태 예측하기", use_container_width=True):
         - 칼슘과 비타민 D를 충분히 섭취하기
         - 흡연과 과도한 음주 피하기
         - 위험요인이 있거나 결과가 걱정된다면 실제 골밀도 검사 받기
-        """
-    )
-
-    st.warning(
-        "이 프로그램은 질병을 진단하거나 의료진의 진료를 대신하지 않습니다."
-    )
